@@ -105,6 +105,7 @@ endif()
 
 add_definitions(-D_HAS_STD_BYTE=0)
 
+
 # =============================================
 
 include("../qtturnblack/output/includeme.cmake")
@@ -133,4 +134,16 @@ if (ANDROID)
 endif()
 
 # =============================================
+
+if (WIN32)
+    ADD_CUSTOM_COMMAND(TARGET ${PROJECT_NAME} POST_BUILD COMMAND python "${CMAKE_SOURCE_DIR}/../scripts/make-output/cpp-qt-package.py" win32msvc example-qtframeless ${PROJECT_NAME} v1.0 ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_BINARY_DIR})
+elseif (UNIX AND NOT APPLE AND NOT WIN32 AND NOT ANDROID)
+    find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS X11Extras)
+    find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS X11Extras)
+    target_link_libraries(${PROJECT_NAME} PRIVATE Qt${QT_VERSION_MAJOR}::X11Extras Qt${QT_VERSION_MAJOR}::CorePrivate)
+    find_package(X11 REQUIRED)
+    target_link_libraries(${PROJECT_NAME} PRIVATE X11::X11)
+    ADD_CUSTOM_COMMAND(TARGET ${PROJECT_NAME} POST_BUILD COMMAND python3 "${CMAKE_SOURCE_DIR}/../scripts/make-output/cpp-qt-package.py" linux64 example-qtframeless ${PROJECT_NAME} v1.0 ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_BINARY_DIR})
+endif()
+
 

@@ -69,6 +69,17 @@ void loadthemesetting() {
     qApp->setStyleSheet(_t);
 }
 
+#if defined(Q_OS_LINUX) && !defined(Q_OS_ANDROID)
+#include "qx11info_x11.h"
+#endif
+#if defined(Q_OS_LINUX) && !defined(Q_OS_ANDROID)
+#include <X11/Xlib.h>
+
+#include <X11/Xutil.h>
+#include <QX11Info>
+
+#endif
+
 
 int main(int argc, char *argv[]) {
     QApplication::setHighDpiScaleFactorRoundingPolicy(Qt::HighDpiScaleFactorRoundingPolicy::PassThrough);
@@ -105,7 +116,7 @@ int main(int argc, char *argv[]) {
     fl_tb.second->w3layout()->addWidget(maintitlebarbutton);
     fl_tb.second->set_title("v1.0");
     fl_tb.second->set_title_enable(false);
-    // fl_tb.first->rubberBand_enable = {false,false,false};
+    // fl_tb.first->rubberBand_enable = {true,false,false};
 #else
     auto fl_tb = QFL::template_windows10<QFL::TB::TitlebarLikeAndroid>(w, qac->get_statusbar_qwiget_height());
     w.show();
