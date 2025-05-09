@@ -111,14 +111,14 @@ int main(int argc, char *argv[]) {
 #endif
 
 #ifndef Q_OS_ANDROID
-    auto fl_tb = QFL::template_windows10<QFL::TB::TitlebarLikeWindows10>(w, 28, 44);
+    auto qfl_tb = QFL::template_windows10<QFL::TB::TitlebarLikeWindows10>(w, 28, 44);
     Maintitlebarbutton *maintitlebarbutton = new Maintitlebarbutton(&w);
-    fl_tb.second->w3layout()->addWidget(maintitlebarbutton);
-    fl_tb.second->set_title("v1.0");
-    fl_tb.second->set_title_enable(false);
-    // fl_tb.first->rubberBand_enable = {true,false,false};
+    qfl_tb.second->w3layout()->addWidget(maintitlebarbutton);
+    qfl_tb.second->set_title("v1.0");
+    qfl_tb.second->set_title_enable(false);
+    qfl_tb.first->rubberBand_enable = {true,false,false};
 #else
-    auto fl_tb = QFL::template_windows10<QFL::TB::TitlebarLikeAndroid>(w, qac->get_statusbar_qwiget_height());
+    auto qfl_tb = QFL::template_windows10<QFL::TB::TitlebarLikeAndroid>(w, qac->get_statusbar_qwiget_height());
     w.show();
     // W_startscreen *w_ss = new W_startscreen(&w);
     // w_ss->showFullScreen();
@@ -134,7 +134,7 @@ int main(int argc, char *argv[]) {
     });
     qac->up_statusbar_height();
 #endif
-    a.installNativeEventFilter(fl_tb.first);
+    a.installNativeEventFilter(qfl_tb.first);
 
 
     //    Frameless::Frameless fl(&w);

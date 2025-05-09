@@ -16,7 +16,7 @@ class Dialog1 : public QDialog {
     explicit Dialog1(QWidget *parent = nullptr);
     ~Dialog1();
 
-    QFL::QtFrameless *fl = nullptr;
+    QFL::QtFrameless *qfl = nullptr;
     bool nativeEvent(const QByteArray &eventType, void *message, long *result);
     bool eventFilter(QObject *o, QEvent *e);
     void showEvent(QShowEvent *event);

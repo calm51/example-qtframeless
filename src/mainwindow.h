@@ -18,7 +18,7 @@ class MainWindow : public QMainWindow {
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
-    QFL::QtFrameless *fl = nullptr;
+    QFL::QtFrameless *qfl = nullptr;
     bool nativeEvent(const QByteArray &eventType, void *message, long *result);
     bool eventFilter(QObject *o, QEvent *e);
     void showEvent(QShowEvent *event);

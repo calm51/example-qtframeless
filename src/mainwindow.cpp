@@ -27,12 +27,12 @@ MainWindow::MainWindow(QWidget *parent)
     QtAndroidCls *qac = QtAndroidCls::instance();
     connect(qac, &QtAndroidCls::statusbarHeightChanged, this, [=](const qint32 &height) {
         qDebug() << "heightheightheight" << height;
-        if (fl && height > 4) {
-            fl->titlebar_MinimumHeight = height;
-            if (fl->titlebar_widget) {
-                fl->titlebar_widget->setFixedHeight(fl->titlebar_MinimumHeight);
+        if (qfl && height > 4) {
+            qfl->titlebar_MinimumHeight = height;
+            if (qfl->titlebar_widget) {
+                qfl->titlebar_widget->setFixedHeight(qfl->titlebar_MinimumHeight);
             }
-            fl->load();
+            qfl->load();
         }
     });
 #endif
@@ -57,27 +57,27 @@ MainWindow::MainWindow(QWidget *parent)
 
         QFL::__global__ &fg = QFL::G();
 #ifndef Q_OS_ANDROID
-        auto fl_tb = QFL::template_windows10<QFL::TB::TitlebarLikeWindows10>(*dialog1, 24, 40);
-        fl_tb.first->allow_showMaximized = false;
-        fl_tb.first->allow_showMinimized = false;
-        fl_tb.second->hide_button = {true, true, false};
-        fl_tb.second->set_title(dialog1->windowTitle()); // fl_tb.second->setWindowTitle(dialog1->windowTitle());
-        fl_tb.second->loadthemesetting();
+        auto qfl_tb = QFL::template_windows10<QFL::TB::TitlebarLikeWindows10>(*dialog1, 24, 40);
+        qfl_tb.first->allow_showMaximized = false;
+        qfl_tb.first->allow_showMinimized = false;
+        qfl_tb.second->hide_button = {true, true, false};
+        qfl_tb.second->set_title(dialog1->windowTitle()); // qfl_tb.second->setWindowTitle(dialog1->windowTitle());
+        qfl_tb.second->loadthemesetting();
         if (fg.currentTheme == QFL::Theme::Light) {
-            fl_tb.second->colors[9] = QColor(219, 170, 240);
+            qfl_tb.second->colors[9] = QColor(219, 170, 240);
         } else if (fg.currentTheme == QFL::Theme::Dark) {
-            fl_tb.second->colors[9] = QColor(82, 54, 95);
+            qfl_tb.second->colors[9] = QColor(82, 54, 95);
         }
-        fl_tb.second->load();
+        qfl_tb.second->load();
 #else
         QtAndroidCls *qac = QtAndroidCls::instance();
-        auto fl_tb = QFL::template_windows10<QFL::TB::TitlebarLikeAndroid>(*dialog1, qac->get_statusbar_qwiget_height());
+        auto qfl_tb = QFL::template_windows10<QFL::TB::TitlebarLikeAndroid>(*dialog1, qac->get_statusbar_qwiget_height());
         if (fg.currentTheme == QFL::Theme::Light) {
-            fl_tb.second->colors[1] = QColor(240, 170, 170);
+            qfl_tb.second->colors[1] = QColor(240, 170, 170);
         } else if (fg.currentTheme == QFL::Theme::Dark) {
-            fl_tb.second->colors[1] = QColor(72, 49, 49);
+            qfl_tb.second->colors[1] = QColor(72, 49, 49);
         }
-        fl_tb.second->load();
+        qfl_tb.second->load();
 #endif
 
         //        Frameless::Frameless *fl = new Frameless::Frameless(dialog1);
@@ -142,8 +142,8 @@ bool MainWindow::eventFilter(QObject *o, QEvent *e) {
     return QMainWindow::eventFilter(o, e);
 }
 bool MainWindow::nativeEvent(const QByteArray &eventType, void *message, long *result) {
-    if (fl) {
-        return fl->nativeEvent(eventType, message, result);
+    if (qfl) {
+        return qfl->nativeEvent(eventType, message, result);
     }
     return false;
 }

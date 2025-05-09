@@ -21,12 +21,12 @@ Dialog1::Dialog1(QWidget *parent)
 #ifdef Q_OS_ANDROID
     QtAndroidCls *qac = QtAndroidCls::instance();
     connect(qac, &QtAndroidCls::statusbarHeightChanged, this, [=](const qint32 &height) {
-        if (fl && height > 4) {
-            fl->titlebar_MinimumHeight = height;
-            if (fl->titlebar_widget) {
-                fl->titlebar_widget->setFixedHeight(fl->titlebar_MinimumHeight);
+        if (qfl && height > 4) {
+            qfl->titlebar_MinimumHeight = height;
+            if (qfl->titlebar_widget) {
+                qfl->titlebar_widget->setFixedHeight(qfl->titlebar_MinimumHeight);
             }
-            fl->load();
+            qfl->load();
         }
     });
 #endif
@@ -44,8 +44,8 @@ bool Dialog1::eventFilter(QObject *o, QEvent *e) {
     return QDialog::eventFilter(o, e);
 }
 bool Dialog1::nativeEvent(const QByteArray &eventType, void *message, long *result) {
-    if (fl) {
-        return fl->nativeEvent(eventType, message, result);
+    if (qfl) {
+        return qfl->nativeEvent(eventType, message, result);
     }
     return false;
 }
