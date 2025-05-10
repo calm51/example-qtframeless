@@ -61,9 +61,32 @@ void loadthemesetting() {
     if (fg.currentTheme == QFL::Theme::Gray) { // 暗色
         qtb = Qtturnblack::get(Qtturnblack::Color::Gray);
     } else if (fg.currentTheme == QFL::Theme::Light) {
+        qtb = Qtturnblack::get(Qtturnblack::Color::Light);
+    }else if (fg.currentTheme == QFL::Theme::White) {
         qtb = Qtturnblack::get(Qtturnblack::Color::Default);
     }
     _t += qtb.styleSheet;
+
+    _t += R"(
+QPushButton {
+    background-color: transparent;
+    color: palette(button-text);
+    padding: 4px 16px;
+    margin: 2px;
+    border: none;
+    border-radius: 0px;
+}
+QPushButton:hover {
+    background-color: palette(button);
+}
+QPushButton:pressed {
+    background-color: palette(midlight);
+}
+QPushButton:disabled {
+    background-color: transparent;
+    color: palette(button-text-x);
+}
+)"; // flat button
 
     qApp->setPalette(qtb.palette);
     qApp->setStyleSheet(_t);
